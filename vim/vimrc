@@ -1,0 +1,522 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-fugitive'
+" Plugin 'derekwyatt/vim-scala'
+Plugin 'airblade/vim-gitgutter'
+" Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
+Plugin 'mileszs/ack.vim'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-surround'
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'Yggdroot/indentLine'
+Plugin 'tpope/vim-commentary'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'w0rp/ale'
+Plugin 'sevko/vim-nand2tetris-syntax'
+Plugin 'terryma/vim-expand-region'
+Plugin 'itchyny/vim-haskell-indent'
+Plugin 'eagletmt/neco-ghc'
+" Plugin 'Shougo/neocomplete.vim'
+Plugin 'eagletmt/ghcmod-vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim'
+Plugin 'suan/vim-instant-markdown'
+Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-misc'
+Plugin 'dart-lang/dart-vim-plugin'
+Plugin 'neowit/vim-force.com'
+" Plugin 'ensime/ensime-vim'
+Plugin 'cloudhead/neovim-fuzzy'
+Plugin 'neomake/neomake'"
+
+Plugin 'lpld/markdown-folding'
+
+Plugin 'vimwiki/vimwiki'
+Plugin 'morhetz/gruvbox'
+Plugin 'ayu-theme/ayu-vim'
+Plugin 'ayu-theme/ayu-vim-airline'
+" Plugin 'sjl/badwolf'
+" Plugin 'flazz/vim-colorschemes'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+
+call vundle#end()
+
+" auto-complete for command line
+set wildmenu
+set wildmode=longest:full,full
+
+" always show status line
+set laststatus=2
+
+" highlight search, show search results while typing
+set hlsearch incsearch
+
+" show line numbers
+set number
+highlight LineNr ctermfg=grey
+
+" highlight current line
+set cursorline
+
+" when scrolling, keep two lines between active line and window edge
+set scrolloff=2
+
+" show invisibles
+set list listchars=tab:>-,trail:•
+
+" remove delay for Esc key
+set timeoutlen=1000 ttimeoutlen=0
+
+set encoding=utf-8
+set tabstop=4
+" use spaces instead of tabs
+set expandtab
+
+" shut up
+set visualbell
+
+" case insensitive search
+set ignorecase smartcase
+
+" backspace can delete everything
+set backspace=indent,eol,start
+
+" options for MacVim
+set guifont=FiraCode-Regular:h14
+" hide left scrolling
+set guioptions-=L
+" use console dialogs
+set guioptions+=c
+
+" color settings
+set background=dark
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_light='hard'
+" use gui colors in terminal
+set termguicolors
+" colorscheme ayu
+colorscheme gruvbox
+" let ayucolor="light"
+" enable filetype
+filetype indent plugin on
+
+" syntax highlighting
+syntax enable
+
+" cursor shape for iTerm
+" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" airline settings
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='gruvbox'
+" let g:airline_theme='base16_ashes'
+
+" NeoComplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select = 1
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+" return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+" For no inserting <CR> key.
+" return pumvisible() ? "\<C-y>" : "\<CR>"
+" endfunction
+" <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+" haskell
+let g:haskell_enable_typeroles = 1
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+autocmd FileType haskell set formatprg=stylish-haskell
+
+" Disable ALE by default because it is very slow on large files
+let g:ale_sign_column_always = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 0
+let g:ale_lint_on_text_changed = 0
+
+" Tagbar settings for haskell
+let g:tagbar_type_haskell = {
+    \ 'ctagsbin'  : 'hasktags',
+    \ 'ctagsargs' : '-x -c -o-',
+    \ 'kinds'     : [
+        \  'm:modules:0:1',
+        \  'd:data: 0:1',
+        \  'd_gadt: data gadt:0:1',
+        \  't:type names:0:1',
+        \  'nt:new types:0:1',
+        \  'c:classes:0:1',
+        \  'cons:constructors:1:1',
+        \  'c_gadt:constructor gadt:1:1',
+        \  'c_a:constructor accessors:1:1',
+        \  'ft:function types:1:1',
+        \  'fi:function implementations:0:1',
+        \  'o:others:0:1'
+    \ ],
+    \ 'sro'        : '.',
+    \ 'kind2scope' : {
+        \ 'm' : 'module',
+        \ 'c' : 'class',
+        \ 'd' : 'data',
+        \ 't' : 'type'
+    \ },
+    \ 'scope2kind' : {
+        \ 'module' : 'm',
+        \ 'class'  : 'c',
+        \ 'data'   : 'd',
+        \ 'type'   : 't'
+    \ }
+    \ }
+
+" vim wiki settings
+let g:vimwiki_list = [
+                        \ {'path': '~/Documents/Notes', 'ext': '.md', 'syntax': 'markdown'},
+                        \ {'path': '/yoxel/notes/wiki', 'ext': '.md', 'syntax': 'markdown'}
+                        \]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.mkd': 'markdown'}
+" let g:vimwiki_folding = 'expr'
+
+" instant markdown autostart disable
+let g:instant_markdown_autostart = 0
+nnoremap <Leader>tm :InstantMarkdownPreview<CR>
+nnoremap <Leader>tt :!typora '%'<CR><CR>
+
+" markdown code blocks
+nnoremap <Leader>tcc o```<CR>```<Esc>O
+nnoremap <Leader>tch o```haskell<CR>```<Esc>O
+
+" --- KEY MAPPINGS ---
+
+" Use Space as Leader key
+let mapleader=" "
+
+" keep selection active when indenting text
+vnoremap < <gv
+vnoremap > >gv
+
+" go to the end of the line in insert mode
+inoremap <C-e> <Esc>$a
+
+" add empty lines below and above the cursor
+nnoremap ]o o<Esc>k
+nnoremap [o O<Esc>j
+nnoremap ]<CR> o<Esc>
+nnoremap [<CR> O<Esc>
+
+function! JumpToNextMarkdownHeader(header)
+        let checks = []
+        let i = 1
+        while i <= a:header
+                let checks = add(checks, i)
+                let i += 1
+        endwhile
+        normal! j
+        while getline('.') !~ '^# ' && line('.') < line('$')
+              normal! j
+        endwhile
+endfunction
+
+function! FillString(char, size)
+        let result = ''
+        let i = 1
+        while i <= a:size
+                let result += char
+                let i += 1
+        endwhile
+        return result
+endfunction
+
+" go to next and prev words (containing only word characters)
+nnoremap gw :call JumpToNextWord()<Bar>:echo<CR>
+nnoremap gW :call JumpToPrevWord()<Bar>:echo<CR>
+function! JumpToNextWord()
+    normal w
+    while strpart(getline('.'), col('.')-1, 1) !~ '\w'
+        normal w
+    endwhile
+endfunction
+
+function! JumpToPrevWord()
+    normal b
+    while strpart(getline('.'), col('.')-1, 1) !~ '\w'
+        normal b
+    endwhile
+endfunction
+
+" yank to the end of the line
+nnoremap Y y$
+
+nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F3> :NumbersToggle<CR>
+
+" ALE settings
+nmap ]e <Plug>(ale_next_wrap)
+nmap [e <Plug>(ale_previous_wrap)
+nnoremap <F9> :call ale#Lint()<CR>
+nnoremap <F10> :ALEToggle<CR>
+
+" navigate easily through wrapped lines
+noremap j gj
+noremap k gk
+
+" Remap Esc key to home row
+" inoremap jk <Esc>
+" inoremap ол <Esc>
+" inoremap <Esc> <nop>
+
+" --- Leader key mappings ---
+
+" no highlighting after search
+" nnoremap <silent> <Leader><Space> :nohlsearch<Bar>:echo<CR>
+
+" show active buffers
+" nnoremap <Leader>l :ls<CR>:b<Space>
+
+" delete current buffer, switch to prev. one
+nnoremap <Leader>x :bprev<Bar>:bdelete #<CR>
+" new tab
+nnoremap <Leader>ot :tabedit<Space>
+" edit file in current window
+nnoremap <Leader>oo :edit<Space>
+" only window
+nnoremap <Leader>z <C-w>o
+" switch buffers with Tab
+nnoremap gb :bnext<CR>
+nnoremap gB :bprev<CR>
+
+" GitGutter and Fugitive functions (<Leader>v)
+nnoremap ]v :GitGutterNextHunk<CR>
+nnoremap [v :GitGutterPrevHunk<CR>
+nnoremap <Leader>vd :GitGutterPreviewHunk<CR>
+nnoremap <Leader>vr :GitGutterUndoHunk<CR>
+nnoremap <Leader>vs :GitGutterStageHunk<CR>
+nnoremap <Leader>vc :Gstatus<CR>
+nnoremap <Leader>vp :Gpush
+nnoremap <Leader>vu :Gpull
+
+" search entire word
+nnoremap <Leader>/ /\<\><Left><Left>
+nnoremap <Leader>? ?\<\><Left><Left>
+
+" nnoremap d "dd
+" vnoremap d "dd
+" Quicker access to system clipboard
+nnoremap <Leader>y "+y
+nnoremap <Leader>Y "+y$
+nnoremap <Leader>p p
+nnoremap <Leader>P P
+nnoremap p "0p
+nnoremap P "0P
+nnoremap <Leader>d "+d
+nnoremap <Leader>D "+D
+vnoremap <Leader>y "+y
+vnoremap <Leader>p p
+vnoremap <Leader>P P
+vnoremap p "0p
+vnoremap P "0P
+vnoremap <Leader>d "+d
+nnoremap <Leader>c "+c
+nnoremap <Leader>C "+C
+vnoremap <Leader>c "+c
+vnoremap <Leader>C "+C
+
+" next and prev jumps
+nnoremap <Leader>, <C-O>
+nnoremap <Leader>. <C-I>
+nnoremap <Leader>fe :set foldmethod=expr<Cr>
+nnoremap <Leader>fm :set foldmethod=manual<Cr>
+nnoremap <Leader>fF :set foldmethod=expr<Cr>:set foldmethod=manual<Cr>zM
+
+" Json formatting
+nnoremap <Leader>fj :%!python -m json.tool<CR>
+vnoremap <Leader>fj :!python -m json.tool<CR>
+
+" Remove trailing whitespaces
+nnoremap <Leader>fs :%s/\s\+$//e<CR>:nohlsearch<CR>
+vnoremap <Leader>fs :s/\s\+$//e<CR>:nohlsearch<CR>gv
+
+" Nerd tree
+noremap <Leader>n :NERDTreeToggle<CR>
+
+" for haskell,
+" show type of the expression under cursor
+autocmd FileType haskell nnoremap <Leader>sp :GhcModType<CR>
+" remove highlighting
+autocmd FileType haskell nnoremap <Leader><Space> :nohlsearch<CR>:GhcModTypeClear<CR>:echo<CR>
+
+" in visual mode, use v and C-v to expand and shrink selected region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+vnoremap al <Esc>^v$
+vnoremap il <Esc>^v$h
+
+" workaround for iTerm, in order for C-Space to work
+" imap <nul> <C-Space>
+" inoremap <C-Space> <C-N>
+
+" start new change on <CR>, <C-W>, <C-U>
+inoremap <C-U> <C-G>u<C-U>
+" inoremap <C-W> <C-G>u<C-W>
+inoremap <CR> <C-G>u<CR>
+inoremap <C-d> <Del>
+
+" End the line with ;
+inoremap ;; <Esc>A;<Esc>
+" Goto next class definition
+nnoremap ]c /\(^\\|\s\)\(class\\|interface\\|trait\\|enum\\|object\)\($\\|\s\)\C<CR>ew:nohlsearch<Bar>:echo<CR>
+nnoremap [c ?\(^\\|\s\)\(class\\|interface\\|trait\\|enum\\|object\)\($\\|\s\)\C<CR>ew:nohlsearch<Bar>:echo<CR>
+
+" edit and source config file
+noremap <f7> :tabedit $HOME/.vimrc<CR>
+noremap <f6> :so $HOME/.vimrc<CR>
+
+" split lines
+nnoremap <C-J> a<CR><Esc>k$
+
+" scroll a bit quicker
+nnoremap <C-E> 3<C-E>
+nnoremap <C-Y> 3<C-Y>
+
+" override system-wide mapping, that treats C-d as Delete
+nnoremap <Del> <C-d>
+vnoremap <Del> <C-d>
+
+" --- Disable arrow keys ---
+noremap <left> <nop>
+noremap <right> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+
+inoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+
+noremap <S-left> <nop>
+noremap <S-right> <nop>
+noremap <S-up> <nop>
+noremap <S-down> <nop>
+
+inoremap <S-left> <nop>
+inoremap <S-right> <nop>
+inoremap <S-up> <nop>
+inoremap <S-down> <nop>
+
+noremap <home> <nop>
+noremap <end> <nop>
+noremap <S-home> <nop>
+noremap <S-end> <nop>
+
+inoremap <home> <nop>
+inoremap <end> <nop>
+inoremap <S-home> <nop>
+inoremap <S-end> <nop>
+
+noremap <pageup> <nop>
+noremap <pagedown> <nop>
+noremap <S-pageup> <nop>
+noremap <S-pagedown> <nop>
+
+inoremap <pageup> <nop>
+inoremap <pagedown> <nop>
+inoremap <S-pageup> <nop>
+inoremap <S-pagedown> <nop>
+
+noremap <M-left> <nop>
+noremap <M-right> <nop>
+noremap <M-down> <nop>
+noremap <M-up> <nop>
+
+noremap <S-M-left> <nop>
+noremap <S-M-right> <nop>
+noremap <S-M-down> <nop>
+noremap <S-M-up> <nop>
+
+map й q
+map ц w
+map у e
+map к r
+map е t
+map н y
+map г u
+map ш i
+map щ o
+map з p
+map х [
+map ъ ]
+map ф a
+map ы s
+map в d
+map а f
+map п g
+map р h
+map о j
+map л k
+map д l
+map ж ;
+map э '
+map ё \
+map я z
+map ч x
+map с c
+map м v
+map и b
+map т n
+map ь m
+map б ,
+map ю .
+map Й Q
+map Ц W
+map У E
+map К R
+map Е T
+map Н Y
+map Г U
+map Ш I
+map Щ O
+map З P
+map Х {
+map Ъ }
+map Ф A
+map Ы S
+map В D
+map А F
+map П G
+map Р H
+map О J
+map Л K
+map Д L
+map Ж :
+map Э "
+map Я Z
+map Ч X
+map С C
+map М V
+map И B
+map Т N
+map Ь M
+map Б <
+map Ю >
+map Ё /|
+

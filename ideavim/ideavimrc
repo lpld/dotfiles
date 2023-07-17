@@ -1,0 +1,256 @@
+source ~/.config/vim/vimrc
+
+set visualbell
+set noerrorbells
+set surround
+set easymotion
+set relativenumber
+
+" disable mappings from .vimrc
+inoremap <C-U> <C-U>
+inoremap <CR> <CR>
+
+" in vim i use Tab to switch buffers
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+
+" build and debug actions
+nnoremap <Leader>Bp :action ViewBreakpoints<CR>
+nnoremap <Leader>bP :action EditBreakpoint<CR>
+nnoremap <Leader>bp :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>bB :action Compile<CR>
+nnoremap <Leader>bb :action CompileDirty<CR>
+nnoremap <Leader>bm :action Maven.ExecuteGoal<CR>
+nnoremap <Leader>br :action Run<CR>
+nnoremap <Leader>bR :action ChooseRunConfiguration<CR>
+nnoremap <Leader>bd :action Debug<CR>
+nnoremap <Leader>bD :action ChooseDebugConfiguration<CR>
+nnoremap <Leader>bc :action CreateRunConfiguration<CR>
+nnoremap <Leader>bC :action editRunConfigurations<CR>
+nnoremap <Leader>bE :action EvaluateExpression<CR>
+vnoremap <Leader>bE <Esc>gv:<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action EvaluateExpression<CR>
+nnoremap <Leader>be :action QuickEvaluateExpression<CR>
+vnoremap <Leader>be <Esc>gv:<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action QuickEvaluateExpression<CR>
+nnoremap <Leader>bs :action Scala.RunConsole<CR>
+nnoremap <Leader>bM :action Maven.Reimport<CR>
+
+" version control actions
+nnoremap ]v :action VcsShowNextChangeMarker<CR>
+nnoremap [v :action VcsShowPrevChangeMarker<CR>
+nnoremap <Leader>vd :action VcsShowCurrentChangeMarker<CR>
+nnoremap <Leader>vr :action Vcs.RollbackChangedLines<CR>
+nnoremap <Leader>vu :action Vcs.UpdateProject<CR>
+nnoremap <Leader>vp :action Vcs.Push<CR>
+nnoremap <Leader>vv :action Vcs.QuickListPopupAction<CR>
+nnoremap <Leader>vc :action Vcs.Show.Local.Changes<CR>
+nnoremap <Leader>vf :action CheckinProject<CR>
+nnoremap <Leader>vb :action Git.Branches<CR>
+nnoremap <Leader>vl :action Vcs.Show.Log<CR>
+nnoremap <Leader>va :set norelativenumber<CR>:action Annotate<CR>
+nnoremap <Leader>vs :action Vcs.Show.Shelf<CR>
+
+" extract actions
+nnoremap <Leader>ei :action ExtractInterface<CR>
+nnoremap <Leader>es :action ExtractSuperclass<CR>
+nnoremap <Leader>en :action ExtractClass<CR>
+nnoremap <Leader>em :action ExtractMethod<CR>
+vnoremap <Leader>em :action ExtractMethod<CR>
+nnoremap <Leader>ev :action IntroduceVariable<CR>
+vnoremap <Leader>ev :action IntroduceVariable<CR>
+nnoremap <Leader>ef :action IntroduceField<CR>
+vnoremap <Leader>ef :action IntroduceField<CR>
+nnoremap <Leader>ep :action IntroduceParameter<CR>
+vnoremap <Leader>ep :action IntroduceParameter<CR>
+nnoremap <Leader>ec :action IntroduceConstant<CR>
+vnoremap <Leader>ec :action IntroduceConstant<CR>
+
+" refactoring actions
+nnoremap <Leader>ri :action Inline<CR>
+nnoremap <Leader>rr :action RenameElement<CR>
+nnoremap <Leader>rj :action MemberPushDown<CR>
+nnoremap <Leader>rk :action MembersPullUp<CR>
+nnoremap <Leader>rs :action ChangeSignature<CR>
+nnoremap <Leader>rd :action SafeDelete<CR>
+nnoremap <Leader>rm :action Move<CR>
+nnoremap <Leader>rc :action CopyElement<CR>
+
+" fix actions
+nnoremap <Leader>ff :action ReformatCode<CR>
+vnoremap <Leader>ff :action ReformatCode<CR>
+nnoremap <Leader>fi :action OptimizeImports<CR>
+nnoremap <Leader>fa :action ShowIntentionActions<CR><Esc>
+nnoremap <Leader>fd :action Dart.DartStyle<CR>
+
+" navigation and search
+nnoremap <Leader>su :action ShowUsages<CR>
+nnoremap <Leader>sU :action FindUsages<CR>
+nnoremap <Leader>si :action GotoImplementation<CR>
+nnoremap <Leader>ss :action GotoSuperMethod<CR>
+nnoremap <Leader>sd :action QuickImplementations<CR>
+nnoremap <Leader>sj :action QuickJavaDoc<CR>
+nnoremap <Leader>st :action GotoTypeDeclaration<CR>
+nnoremap <Leader>sp :action Scala.TypeInfo<CR>:action ExpressionTypeInfo<CR>
+vnoremap <Leader>sp :action Scala.TypeInfo<CR>:action ExpressionTypeInfo<CR>
+nnoremap <Leader>sq :action Scala.ShowImplicits<CR>
+nnoremap <Leader>sQ :action Scala.ExpandImplicits<CR>
+nnoremap <Leader>sb :action ShowNavBar<CR>
+nnoremap <Leader>sn :action SelectIn<CR>
+nnoremap <Leader>se :action ShowErrorDescription<CR>
+nnoremap <Leader>sf :action FindInPath<CR>
+vnoremap <Leader>sf :action FindInPath<CR>
+nnoremap <Leader>sr :action ReplaceInPath<CR>
+vnoremap <Leader>sr :action ReplaceInPath<CR>
+nnoremap <Leader>sh :action LocalHistory.ShowHistory<CR>
+
+" goto first class definition
+nmap <Leader>sc gg]c
+nnoremap ]m :action MethodDown<CR>
+nnoremap [m :action MethodUp<CR>
+nnoremap ]x :action HighlightUsagesInFile<CR>:action FindNext<CR><Esc><Esc>
+vnoremap ]x :action HighlightUsagesInFile<CR>:action FindNext<CR><Esc><Esc>
+nnoremap [x :action HighlightUsagesInFile<CR>:action FindPrevious<CR><Esc><Esc>
+vnoremap [x :action HighlightUsagesInFile<CR>:action FindPrevious<CR><Esc><Esc>
+nnoremap ]d :action NextDiff<CR>
+nnoremap [d :action PreviousDiff<CR>
+
+nnoremap zd :action ToggleRenderedDocPresentation<CR>
+nnoremap zD :action ToggleRenderedDocPresentationForAll<CR>
+
+" hierarchy actions
+nnoremap <Leader>hh :action TypeHierarchy<CR>
+nnoremap <Leader>hm :action MethodHierarchy<CR>
+nnoremap <Leader>hc :action CallHierarchy<CR>
+nnoremap <Leader>hd :action ShowUmlDiagramPopup<CR>
+
+" generate actions
+nnoremap <Leader>ge :action GenerateEquals<CR>
+nnoremap <Leader>gg :action GenerateGetter<CR>
+nnoremap <Leader>gs :action GenerateSetter<CR>
+nnoremap <Leader>ga :action GenerateGetterAndSetter<CR>
+nnoremap <Leader>gc :action GenerateConstructor<CR>
+nnoremap <Leader>gt :action Actions.ActionsPlugin.GenerateToString<CR>
+nnoremap <Leader>go :action OverrideMethods<CR>
+nnoremap <Leader>gi :action ImplementMethods<CR>
+nnoremap <Leader>gd :action DelegateMethods<CR>
+nnoremap <Leader>gb :action GoToBuilder<CR>
+
+" bookmarks (a bit similar to vim marks)
+nnoremap <Leader>m :action ToggleBookmarkWithMnemonic<CR>
+nnoremap <Leader>M :action ToggleBookmark<CR>
+nnoremap <Leader>' :action ShowBookmarks<CR>
+nnoremap <Leader>` :action ShowBookmarks<CR>
+nnoremap ]b :action GotoNextBookmark<CR>
+nnoremap [b :action GotoPreviousBookmark<CR>
+
+" fix visual selection bug
+nnoremap gv gvh
+
+" go to definition of a class/trait/interface etc.
+" need to escape `\` (this differs from standard .vimrc)
+nnoremap ]c /\(^\\\|\s\)\(class\\\|interface\\\|trait\\\|enum\\\|object\)\($\\\|\s\)\C<CR>ew:nohlsearch<CR>
+" ideavim backwards search are a bit buggy, cannot use regex from .vimrc
+" (looks like using groups `\( \)` breaks the search)
+nnoremap [c b?\\<trait\>\s\\\|\\<class\>\s\\\|\\<object\>\s\\\|\\<interface\>\s\\\|\\<enum\>\s\C<CR>ew:nohlsearch<CR>
+
+nnoremap ]e :action GotoNextError<CR>
+nnoremap [e :action GotoPreviousError<CR>
+
+" go to next and prev words (containing only word characters)
+" unfortunately, this will pollute the search register
+nnoremap gw /\w\+<CR>:nohlsearch<Bar>:echo<CR>
+nnoremap gb ?\w\+<CR>:nohlsearch<Bar>:echo<CR>
+
+" override settings from vimrc
+vnoremap v v
+vnoremap <C-v> <C-v>
+" nnoremap d d
+" vnoremap d d
+
+" toggle relative numbers
+nnoremap <F3> :set relativenumber!<CR>
+
+" " comment a line, similar to tpope/vim-commentary
+" nnoremap gcc :action CommentByLineComment<CR>
+" vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>gv
+" nnoremap gcap vap:<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>gv
+
+" lombok
+nnoremap <Leader>ld :action defaultLombokData<CR>
+nnoremap <Leader>le :action defaultLombokEqualsAndHashcode<CR>
+nnoremap <Leader>lg :action defaultLombokGetter<CR>
+nnoremap <Leader>ll :action defaultLombokLogger<CR>
+nnoremap <Leader>ls :action defaultLombokSetter<CR>
+nnoremap <Leader>lt :action defaultLombokToString<CR>
+nnoremap <Leader>lr ?\\<class\>\\\|\\<enum\><CR>:nohlsearch<CR>O@lombok.RequiredArgsConstructor<Esc>
+nnoremap <Leader>lv ?\\<class\>\\\|\\<enum\><CR>:nohlsearch<CR>O@lombok.Value<Esc>
+
+" this still doesn't work
+nnoremap <Leader>/ /\\< \>
+nnoremap <Leader>? ?\\< \>
+
+map й q
+map ц w
+map у e
+map к r
+map е t
+map н y
+map г u
+map ш i
+map щ o
+map з p
+map х [
+map ъ ]
+map ф a
+map ы s
+map в d
+map а f
+map п g
+map р h
+map о j
+map л k
+map д l
+map ж ;
+map э '
+map ё \
+map я z
+map ч x
+map с c
+map м v
+map и b
+map т n
+map ь m
+map б ,
+map ю .
+map Й Q
+map Ц W
+map У E
+map К R
+map Е T
+map Н Y
+map Г U
+map Ш I
+map Щ O
+map З P
+map Х {
+map Ъ }
+map Ф A
+map Ы S
+map В D
+map А F
+map П G
+map Р H
+map О J
+map Л K
+map Д L
+map Ж :
+map Э "
+map Я Z
+map Ч X
+map С C
+map М V
+map И B
+map Т N
+map Ь M
+map Б <
+map Ю >
+map Ё /|
